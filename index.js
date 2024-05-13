@@ -1,14 +1,25 @@
-function lengthOfLIS(nums) {
-  if (nums.length === 0) return 0;
-  const dp = new Array(nums.length).fill(1);
-  let max = 1;
-  for (let i = 1; i < nums.length; i++) {
-    for (let j = 0; j < i; j++) {
-      if (nums[i] > nums[j]) {
-        dp[i] = Math.max(dp[i], dp[j] + 1);
-        max = Math.max(max, dp[i]);
+function ladderLength(beginWord, endWord, wordList) {
+  const wordSet = new Set(wordList);
+  if (!wordSet.has(endWord)) return 0;
+  let count = 0;
+  const queue = [beginWord];
+  while (queue.length) {
+    const size = queue.length;
+    count++;
+    for (let i = 0; i < size; i++) {
+      const current = queue.shift();
+      if (current === endWord) return count;
+      for (let j = 0; j < current.length; j++) {
+        for (let k = 97; k <= 122; k++) {
+          const newWord =
+            current.slice(0, j) + String.fromCharCode(k) + current.slice(j + 1);
+          if (wordSet.has(newWord)) {
+            queue.push(newWord);
+            wordSet.delete(newWord);
+          }
+        }
       }
     }
   }
-  return max;
+  return 0;
 }
