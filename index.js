@@ -1,3 +1,1 @@
-function countWords(str) {
-  return str.split(" ").filter((word) => word !== "").length;
-}
+const reverseWords = (str) => str.split(" ").reverse().join(" ");
